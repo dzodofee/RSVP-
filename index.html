@@ -264,10 +264,10 @@ input[aria-invalid="true"]{border-color:var(--error)}
         <div id="foodBlock" hidden>
           <fieldset>
             <legend>Food allergies</legend>
-            <p class="hint">So we can keep you safe. Tick any that apply.</p>
+            <p class="hint">So we can keep you safe. Tick any that apply, or “No allergies”.</p>
             <div class="chips" id="me-allergies"></div>
             <div class="other" id="me-allergies-other" hidden><input type="text" id="me-allergyOther" maxlength="200" placeholder="What are you allergic to?" aria-label="Other allergy"></div>
-            <p class="err" id="err-allergy" hidden>Please tick your allergies, or “No allergies”.</p>
+            <p class="err" id="err-allergy" hidden>Please tick any allergies, or tick “No allergies” if you don’t have any.</p>
           </fieldset>
 
           <fieldset>
@@ -301,7 +301,7 @@ input[aria-invalid="true"]{border-color:var(--error)}
               <h4>Their food allergies</h4>
               <div class="chips" id="po-allergies"></div>
               <div class="other" id="po-allergies-other" hidden><input type="text" id="po-allergyOther" maxlength="200" placeholder="What are they allergic to?" aria-label="Plus-one other allergy"></div>
-              <p class="err" id="err-po-allergy" hidden>Please tick their allergies, or “No allergies”.</p>
+              <p class="err" id="err-po-allergy" hidden>Please tick your guest’s allergies, or tick “No allergies” if they don’t have any.</p>
             </div>
             <div class="sub">
               <h4>Foods they’d rather not eat</h4>
@@ -452,7 +452,7 @@ input[aria-invalid="true"]{border-color:var(--error)}
   $('codeForm').addEventListener('submit', function(e){ e.preventDefault(); $('codeErr').hidden = true; $('codeInput').removeAttribute('aria-invalid'); lookup($('codeInput').value); });
 
   /* submit */
-  function fail(el, msg, focusEl){ if (msg) el.textContent = msg; el.hidden = false; var t = focusEl || el; try { t.focus({preventScroll:true}); } catch(e){} t.scrollIntoView({block:'center',behavior:'smooth'}); return false; }
+  function fail(el, msg, focusEl){ if (msg) el.textContent = msg; el.hidden = false; $('formErr').textContent = 'Your reply hasn’t been sent yet. ' + el.textContent; $('formErr').hidden = false; var t = focusEl || el; try { t.focus({preventScroll:true}); } catch(e){} t.scrollIntoView({block:'center',behavior:'smooth'}); return false; }
   function validate(){
     var att = radio('attending');
     if (!att) return fail($('err-attending'), null, $('att-yes').disabled ? $('att-no') : $('att-yes'));
